@@ -3,25 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17817290005"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17817290005');
+    </script>
+    <!-- Event snippet for 클릭 투 콜 (2) conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17817290005/KG8YCMH3scMcEJWK-a9C',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
+    <!-- 2. 1분 지연 이벤트 스니펫 -->
+    <script>
+      setTimeout(function() {
+        gtag('event', 'conversion', {'send_to': 'AW-17817290005/tgt5CMT3scMcEJWK-a9C'});
+      }, 60000);
+    </script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PN5QB2XR');</script>
+    })(window,document,'script','dataLayer','GTM-PLBP2654');</script>
     <!-- End Google Tag Manager -->
     <title>센트레빌 아스테리움 거제</title>
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="센트레빌 아스테리움 거제" />
-    <meta name="description" content="1307세대 대단지 프리미엄, 2026년 6월중 공개! 관심고객 등록 시 특별혜택 및 분양일정 우선 안내를 드립니다." />
-    <meta name="keywords" content="거제 상동2지구, 센트레빌 아스테리움, 거제 아파트, 관심고객등록, 분양안내" />
+    <meta name="description" content="1307세대 대단지 프리미엄, 선착순 분양 개시! 관심고객 등록 시 특별혜택 및 분양일정 우선 안내를 드립니다." />
+    <meta name="keywords" content="센트레빌 아스테리움 거제, 거제 아파트, 관심고객등록, 분양안내" />
 
     <!-- Open Graph / Facebook / Kakao -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ais-pre-zlmbtu4bveg6xgm7fdt7rh-109896430783.asia-northeast1.run.app/" />
     <meta property="og:title" content="센트레빌 아스테리움 거제 - 특별 관심고객 모집" />
-    <meta property="og:description" content="1307세대 대단지 프리미엄, 2026년 6월중 공개! 사전 관심고객 등록하시고 다양한 특별혜택을 받아보세요." />
+    <meta property="og:description" content="1307세대 대단지 프리미엄, 선착순 분양 개시! 사전 관심고객 등록하시고 다양한 특별혜택을 받아보세요." />
     <meta property="og:image" content="https://pub-e2bb23fc59ee44128f4e67a585100d97.r2.dev/1.jpeg" />
     <meta property="og:site_name" content="센트레빌 아스테리움 거제" />
     <meta property="og:locale" content="ko_KR" />
@@ -30,11 +60,20 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://ais-pre-zlmbtu4bveg6xgm7fdt7rh-109896430783.asia-northeast1.run.app/" />
     <meta property="twitter:title" content="센트레빌 아스테리움 거제 - 특별 관심고객 모집" />
-    <meta property="twitter:description" content="1307세대 대단지 프리미엄, 2026년 6월중 공개! 사전 관심고객 등록하시고 다양한 특별혜택을 받아보세요." />
+    <meta property="twitter:description" content="1307세대 대단지 프리미엄, 선착순 분양 개시! 사전 관심고객 등록하시고 다양한 특별혜택을 받아보세요." />
     <meta property="twitter:image" content="https://pub-e2bb23fc59ee44128f4e67a585100d97.r2.dev/1.jpeg" />
 
     <!-- Netlify Badge & Drawer Force Hide -->
     <style>
+      #nl-badge-frame,
+      #nl-hud-frame,
+      iframe#nl-badge-frame,
+      iframe#nl-hud-frame,
+      iframe[id*="nl-badge"],
+      iframe[id*="nl-hud"],
+      iframe[id*="nl-"],
+      iframe[srcdoc*="Powered by"],
+      iframe[srcdoc*="Netlify"],
       netlify-drawer,
       #netlify-drawer-iframe,
       iframe[src*="netlify"],
@@ -51,17 +90,33 @@
         opacity: 0 !important;
         pointer-events: none !important;
         position: absolute !important;
-        top: -9999px !important;
-        left: -9999px !important;
+        top: -99999px !important;
+        left: -99999px !important;
         width: 0 !important;
         height: 0 !important;
-        z-index: -9999 !important;
+        z-index: -999999 !important;
       }
     </style>
     <script>
       (function() {
+        try {
+          localStorage.setItem("nl-hud:public:v1", "hidden");
+          localStorage.setItem("nl-hud:owner-private:v1", "hidden");
+        } catch(e) {}
         function removeNetlifyBadges() {
+          try {
+            localStorage.setItem("nl-hud:public:v1", "hidden");
+            localStorage.setItem("nl-hud:owner-private:v1", "hidden");
+          } catch(e) {}
           const selectors = [
+            '#nl-badge-frame',
+            '#nl-hud-frame',
+            'iframe#nl-badge-frame',
+            'iframe#nl-hud-frame',
+            'iframe[id*="nl-"]',
+            'iframe[srcdoc*="Netlify"]',
+            'iframe[srcdoc*="Powered by"]',
+            'script[src*="/.netlify/scripts/hud"]',
             'netlify-drawer',
             '#netlify-drawer-iframe',
             'iframe[src*="netlify"]',
@@ -73,19 +128,46 @@
           ];
           selectors.forEach(function(sel) {
             try {
-              document.querySelectorAll(sel).forEach(function(el) { el.remove(); });
+              document.querySelectorAll(sel).forEach(function(el) {
+                if (el.tagName === 'IFRAME') el.remove();
+                else if (el.id !== 'nl-badge-frame' && el.id !== 'nl-hud-frame') el.remove();
+              });
             } catch(e) {}
           });
         }
+        removeNetlifyBadges();
         document.addEventListener('DOMContentLoaded', removeNetlifyBadges);
         window.addEventListener('load', removeNetlifyBadges);
-        setInterval(removeNetlifyBadges, 300);
+        setInterval(removeNetlifyBadges, 100);
+
+        if (window.MutationObserver) {
+          new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+              m.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) {
+                  if (
+                    node.tagName === 'IFRAME' &&
+                    (node.id === 'nl-badge-frame' || node.id === 'nl-hud-frame' || (node.id && node.id.includes('nl-')))
+                  ) {
+                    node.remove();
+                  } else if (node.tagName === 'SCRIPT' && node.src && node.src.includes('hud')) {
+                    node.remove();
+                  }
+                }
+              });
+            });
+          }).observe(document.documentElement, { childList: true, subtree: true });
+        }
       })();
     </script>
   </head>
   <body>
+    <!-- Intercept Netlify HUD by providing matching dummy element -->
+    <div id="nl-badge-frame" style="display:none!important;position:absolute;width:0;height:0;overflow:hidden;"></div>
+    <div id="nl-hud-frame" style="display:none!important;position:absolute;width:0;height:0;overflow:hidden;"></div>
+
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PN5QB2XR"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLBP2654"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
