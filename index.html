@@ -32,6 +32,56 @@
     <meta property="twitter:title" content="센트레빌 아스테리움 거제 - 특별 관심고객 모집" />
     <meta property="twitter:description" content="1307세대 대단지 프리미엄, 2026년 6월중 공개! 사전 관심고객 등록하시고 다양한 특별혜택을 받아보세요." />
     <meta property="twitter:image" content="https://pub-e2bb23fc59ee44128f4e67a585100d97.r2.dev/1.jpeg" />
+
+    <!-- Netlify Badge & Drawer Force Hide -->
+    <style>
+      netlify-drawer,
+      #netlify-drawer-iframe,
+      iframe[src*="netlify"],
+      [data-netlify-drawer],
+      .netlify-badge,
+      #netlify-badge,
+      [data-netlify-badge],
+      div[class*="netlify-drawer"],
+      div[class*="netlify-badge"],
+      div[class*="feedback"],
+      a[href*="netlify.com"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        z-index: -9999 !important;
+      }
+    </style>
+    <script>
+      (function() {
+        function removeNetlifyBadges() {
+          const selectors = [
+            'netlify-drawer',
+            '#netlify-drawer-iframe',
+            'iframe[src*="netlify"]',
+            '[data-netlify-drawer]',
+            '.netlify-badge',
+            '#netlify-badge',
+            '[data-netlify-badge]',
+            'a[href*="netlify.com"]'
+          ];
+          selectors.forEach(function(sel) {
+            try {
+              document.querySelectorAll(sel).forEach(function(el) { el.remove(); });
+            } catch(e) {}
+          });
+        }
+        document.addEventListener('DOMContentLoaded', removeNetlifyBadges);
+        window.addEventListener('load', removeNetlifyBadges);
+        setInterval(removeNetlifyBadges, 300);
+      })();
+    </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
