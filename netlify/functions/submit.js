@@ -34,33 +34,57 @@ export async function handler(event) {
     let d1Success = false;
     let d1Result = null;
     try {
-      const token = process.env.CLOUDFLARE_D1_TOKEN || 'cfoat_R5TXodhKUuvvUJB3XRvHtlbJAXR7Iyi0Df-bA3WhO_o.VOeOw9EaAZa_LMP2MHpAvdGBRPu7MjeQy9WLrNnITn4';
       const accountId = process.env.CLOUDFLARE_ACCOUNT_ID || 'bd7cf251b5ebb545c87bdf8f028f50c8';
       const dbId = process.env.CLOUDFLARE_D1_DATABASE_ID || '3c64dd97-b38a-4660-98a4-a542df12d8c7';
+      let token = process.env.CLOUDFLARE_D1_TOKEN || 'cfoat_Y_3Vyqn_8PCAZWORppdMcVZrTypegRW-l5CIKnIpi48.x0ogjnLeJwHVkGMcsxj_XTBeOTr7N8rJ0zl9lIHaICc';
 
-      const d1Res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${dbId}/query`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          sql: 'INSERT INTO "거제 센트레빌 이대진" (name, phone, agreed_to_privacy, source, created_at, visit_date, visit_time) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          params: [
-            name,
-            phone,
-            isAgreed,
-            'google_ads_landing',
-            kstNow,
-            visit_date || null,
-            visit_time || null
-          ]
-        })
-      });
+      const insertSql = 'INSERT INTO "거제 센트레빌 이대진" (name, phone, agreed_to_privacy, source, created_at, visit_date, visit_time) VALUES (?, ?, ?, ?, ?, ?, ?)';
+      const insertParams = [
+        name,
+        phone,
+        isAgreed,
+        'google_ads_landing',
+        kstNow,
+        visit_date || null,
+        visit_time || null
+      ];
 
-      d1Result = await d1Res.json();
-      console.log('✅ [D1 Insert Result]:', JSON.stringify(d1Result));
+      async function runD1Query(authToken) {
+        const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${dbId}/query`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ sql: insertSql, params: insertParams })
+        });
+        return res.json();
+      }
+
+      d1Result = await runD1Query(token);
+
+      // If token expired, auto-refresh via OAuth refresh token and retry
+      if (!d1Result.success && d1Result.errors?.[0]?.code === 10000) {
+        console.log('🔄 Cloudflare D1 token expired, auto-refreshing...');
+        const refreshToken = process.env.CLOUDFLARE_REFRESH_TOKEN || 'cfort_9kUDlpoM_0abaKN3fltBqDYxh9hUkOIKNDfdTv65lqY.OJMAWDOLeWG-v38oSCtzR0nY24WZrUyonZH8dMv_oFE';
+        const refreshRes = await fetch('https://dash.cloudflare.com/oauth2/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            grant_type: 'refresh_token',
+            client_id: '54d11594-84e4-41aa-b438-e81b8fa78ee7',
+            refresh_token: refreshToken
+          })
+        });
+        const refreshData = await refreshRes.json();
+        if (refreshData.access_token) {
+          token = refreshData.access_token;
+          d1Result = await runD1Query(token);
+        }
+      }
+
       if (d1Result.success) d1Success = true;
+      console.log('✅ [D1 Insert Result]:', JSON.stringify(d1Result));
     } catch (d1Err) {
       console.error('❌ [D1 Insert Error]:', d1Err);
     }
