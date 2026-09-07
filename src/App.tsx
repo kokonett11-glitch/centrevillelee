@@ -26,29 +26,22 @@ function RegistrationForm() {
     setSubmitStatus('idle');
     setSubmitErrorMessage('');
 
-    if (!isSupabaseConfigured) {
-      setTimeout(() => {
-        setIsSubmitting(false);
-        reset();
-        navigate('/complete');
-      }, 1500);
-      return;
-    }
-
     try {
-      const { error } = await supabase
-        .from('거제 센트레빌 이대진')
-        .insert([
-          { 
-            name: data.name, 
-            phone: data.phone, 
-            agreed_to_privacy: data.agreement,
-            source: 'google_ads_landing' 
-          }
-        ]);
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.name,
+          phone: data.phone,
+          agreement: data.agreement,
+          source: 'google_ads_landing'
+        })
+      });
 
-      if (error) throw error;
-      
+      if (!res.ok) {
+        throw new Error('전송 중 오류가 발생했습니다.');
+      }
+
       reset();
       navigate('/complete');
     } catch (error: any) {
